@@ -5,10 +5,10 @@
 
 📖 English: [README.en.md](./README.en.md)
 
-快速安装（Claude Code，其他平台见[安装](#安装)）：
+快速安装（全平台通用，需 Node.js；手动方式见[安装](#安装)）：
 
 ```bash
-git clone https://github.com/SEAMAN9000/clean-docx.git && mkdir -p ~/.claude/skills && cp -r clean-docx/skill/clean-docx ~/.claude/skills/
+npx skills add SEAMAN9000/clean-docx -g
 ```
 
 ## 什么时候用
@@ -47,7 +47,7 @@ AI 直接生成的 Word 文档排版常常失控：英文数字被套上中文�
 也可以在命令行给任何现成的 .docx 打分（以下为真实输出）：
 
 ```text
-$ python skill/clean-docx/scripts/lint_docx.py 唐诗里的四季_案例.docx
+$ python skills/clean-docx/scripts/lint_docx.py 唐诗里的四季_案例.docx
 === 唐诗里的四季_案例.docx ===
   文档类型： 中文/中英混排
   ✓ [ 1] 正文字号 12pt
@@ -99,22 +99,28 @@ $ python skill/clean-docx/scripts/lint_docx.py 唐诗里的四季_案例.docx
 pip install python-docx
 ```
 
-### 交给 AI 装（跨工具通用）
+### 一键安装（推荐，全平台通用）
 
-把下面这段整个复制给你的 AI 工具：
+需要 Node.js（`npx` 随它附带，作用是临时下载并运行一个小工具）。一行命令自动检测
+你电脑上装了哪些 AI 编程工具（Claude Code / Codex / OpenCode / Cursor 等 70+ 种），
+把 skill 装到各工具对应的位置：
 
-```text
-帮我安装这个 skill：https://github.com/SEAMAN9000/clean-docx
-你先识别自己跑在哪个工具上（Claude Code / Codex CLI / OpenCode），
-然后读仓库 README 的「安装」一节，照对应平台的步骤执行。
+```bash
+npx skills add SEAMAN9000/clean-docx
 ```
 
-### Claude Code
+- 默认装到当前项目；加 `-g` 装到用户全局（推荐，所有项目可用）
+- 只想装给某个工具：加 `-a`，如 `-a claude-code -a opencode`
+- 安装器来自 [vercel-labs/skills](https://github.com/vercel-labs/skills)
+
+装完验证：新开会话，说「用 clean-docx 生成一页测试文档」——能产出 .docx 并报告体检得分即装好。
+
+### 手动安装：Claude Code
 
 ```bash
 git clone https://github.com/SEAMAN9000/clean-docx.git
 mkdir -p ~/.claude/skills
-cp -r clean-docx/skill/clean-docx ~/.claude/skills/
+cp -r clean-docx/skills/clean-docx ~/.claude/skills/
 ```
 
 Windows（PowerShell）：
@@ -122,23 +128,21 @@ Windows（PowerShell）：
 ```powershell
 git clone https://github.com/SEAMAN9000/clean-docx.git
 New-Item -ItemType Directory -Force "$env:USERPROFILE/.claude/skills"
-Copy-Item -Recurse clean-docx/skill/clean-docx "$env:USERPROFILE/.claude/skills/"
+Copy-Item -Recurse clean-docx/skills/clean-docx "$env:USERPROFILE/.claude/skills/"
 ```
 
-装完验证：新开会话，说「用 clean-docx 生成一页测试文档」——能产出 .docx 并报告体检得分即装好。
-
-### Codex CLI
+### 手动安装：Codex CLI
 
 ```bash
 git clone https://github.com/SEAMAN9000/clean-docx.git
 mkdir -p ./skills
-cp -r clean-docx/skill/clean-docx ./skills/
+cp -r clean-docx/skills/clean-docx ./skills/
 ```
 
 装完验证：同上一句测试话术。若调不起，`scripts/` 下两个脚本可脱离 skill 独立使用
 （见「当函数库直接用」）。
 
-### OpenCode
+### 手动安装：OpenCode
 
 与 Claude Code 完全相同——OpenCode 兼容 `~/.claude/skills/` 路径。
 
@@ -182,7 +186,7 @@ lint 不合规不算失败，见上。
 不经 AI，自己的 Python 脚本里也能用：
 
 ```python
-import sys; sys.path.insert(0, "skill/clean-docx/scripts")
+import sys; sys.path.insert(0, "skills/clean-docx/scripts")
 import docx_style as ds
 
 doc = ds.new_document()                  # A4 + 2.5cm 页边距
@@ -199,11 +203,11 @@ doc.save("输出.docx")
 
 改已有文档、或在别处手写了文字片段之后，保存前调一次 `ds.enforce_fonts(doc)`
 可强制规整全篇字体（专治中文回退到默认字体）。全部函数见库文件顶部注释，
-排版规则定稿见 [skill/clean-docx/references/spec.md](skill/clean-docx/references/spec.md)。
+排版规则定稿见 [skills/clean-docx/references/spec.md](skills/clean-docx/references/spec.md)。
 
 ## 仓库结构
 
-- `skill/clean-docx/` —— skill 包本体（安装就复制这个）
+- `skills/clean-docx/` —— skill 包本体（安装就复制这个）
 - `demo/` —— 排版效果示例图
 
 ## 设计取舍

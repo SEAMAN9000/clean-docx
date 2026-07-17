@@ -7,10 +7,10 @@
 
 📖 中文版: [README.md](./README.md)
 
-Quick install (Claude Code; other platforms: see [Install](#install)):
+Quick install (all platforms, requires Node.js; manual options: see [Install](#install)):
 
 ```bash
-git clone https://github.com/SEAMAN9000/clean-docx.git && mkdir -p ~/.claude/skills && cp -r clean-docx/skill/clean-docx ~/.claude/skills/
+npx skills add SEAMAN9000/clean-docx -g
 ```
 
 ## When to use
@@ -53,7 +53,7 @@ You can also score any existing .docx from the command line (real output below;
 the checker prints in Chinese):
 
 ```text
-$ python skill/clean-docx/scripts/lint_docx.py 唐诗里的四季_案例.docx
+$ python skills/clean-docx/scripts/lint_docx.py 唐诗里的四季_案例.docx
 === 唐诗里的四季_案例.docx ===
   文档类型： 中文/中英混排
   ✓ [ 1] 正文字号 12pt
@@ -107,23 +107,31 @@ Common dependency (all platforms):
 pip install python-docx
 ```
 
-### Let your AI install it (tool-agnostic)
+### One-command install (recommended, all platforms)
 
-Copy this whole block to your AI tool:
+Requires Node.js (`npx` ships with it — a runner that downloads and runs a small tool
+on demand). One command auto-detects which AI coding tools you have installed
+(Claude Code / Codex / OpenCode / Cursor and 70+ more) and installs the skill into
+each tool's expected location:
 
-```text
-Install this skill for me: https://github.com/SEAMAN9000/clean-docx
-First identify which tool you are running in (Claude Code / Codex CLI / OpenCode),
-then read the "Install" section of the repo README and follow the steps
-for that platform.
+```bash
+npx skills add SEAMAN9000/clean-docx
 ```
 
-### Claude Code
+- Installs into the current project by default; add `-g` for a user-global install
+  (recommended — available in every project)
+- To target specific tools only: add `-a`, e.g. `-a claude-code -a opencode`
+- Powered by [vercel-labs/skills](https://github.com/vercel-labs/skills)
+
+Verify: start a new session and say "use clean-docx to generate a one-page test document" —
+if you get a .docx plus a lint score, it's installed.
+
+### Manual install: Claude Code
 
 ```bash
 git clone https://github.com/SEAMAN9000/clean-docx.git
 mkdir -p ~/.claude/skills
-cp -r clean-docx/skill/clean-docx ~/.claude/skills/
+cp -r clean-docx/skills/clean-docx ~/.claude/skills/
 ```
 
 Windows (PowerShell):
@@ -131,24 +139,21 @@ Windows (PowerShell):
 ```powershell
 git clone https://github.com/SEAMAN9000/clean-docx.git
 New-Item -ItemType Directory -Force "$env:USERPROFILE/.claude/skills"
-Copy-Item -Recurse clean-docx/skill/clean-docx "$env:USERPROFILE/.claude/skills/"
+Copy-Item -Recurse clean-docx/skills/clean-docx "$env:USERPROFILE/.claude/skills/"
 ```
 
-Verify: start a new session and say "use clean-docx to generate a one-page test document" —
-if you get a .docx plus a lint score, it's installed.
-
-### Codex CLI
+### Manual install: Codex CLI
 
 ```bash
 git clone https://github.com/SEAMAN9000/clean-docx.git
 mkdir -p ./skills
-cp -r clean-docx/skill/clean-docx ./skills/
+cp -r clean-docx/skills/clean-docx ./skills/
 ```
 
 Verify: same test sentence as above. If the skill does not trigger, the two scripts under
 `scripts/` work standalone (see "Using it as a plain library").
 
-### OpenCode
+### Manual install: OpenCode
 
 Identical to Claude Code — OpenCode reads the `~/.claude/skills/` path.
 
@@ -197,7 +202,7 @@ Update Field after opening); when converting to PDF by script, update fields in 
 Works in your own Python scripts without any AI:
 
 ```python
-import sys; sys.path.insert(0, "skill/clean-docx/scripts")
+import sys; sys.path.insert(0, "skills/clean-docx/scripts")
 import docx_style as ds
 
 doc = ds.new_document()                  # A4 + 2.5cm margins
@@ -216,11 +221,11 @@ After editing an existing document, or writing runs by hand elsewhere, call
 `ds.enforce_fonts(doc)` once before saving to force-normalize every run's fonts
 (the cure for Chinese text falling back to default fonts). All functions are documented
 in the library's header comments; the layout spec lives in
-[skill/clean-docx/references/spec.md](skill/clean-docx/references/spec.md) (in Chinese).
+[skills/clean-docx/references/spec.md](skills/clean-docx/references/spec.md) (in Chinese).
 
 ## Repository layout
 
-- `skill/clean-docx/` — the skill package itself (this is what you copy to install)
+- `skills/clean-docx/` — the skill package itself (this is what you copy to install)
 - `demo/` — layout sample images
 
 ## Design trade-offs
