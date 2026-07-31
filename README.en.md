@@ -92,7 +92,7 @@ figures are fictional):
 ### ✅ Codex CLI
 
 - The skill is a standard `SKILL.md` + scripts package with no Claude-only features; works as-is
-- Install path: `~/.agents/skills/clean-docx/` (user-level) or `.agents/skills/clean-docx/`
+- Install path: `~/.codex/skills/clean-docx/` (user-level) or `.agents/skills/clean-docx/`
   inside your project (keep the filename `SKILL.md`); project memory file is `AGENTS.md`
 
 ### ✅ OpenCode
@@ -147,11 +147,11 @@ Copy-Item -Recurse clean-docx/skills/clean-docx "$env:USERPROFILE/.claude/skills
 
 ```bash
 git clone https://github.com/SEAMAN9000/clean-docx.git
-mkdir -p ~/.agents/skills
-cp -r clean-docx/skills/clean-docx ~/.agents/skills/
+mkdir -p ~/.codex/skills
+cp -r clean-docx/skills/clean-docx ~/.codex/skills/
 ```
 
-For a single project instead, replace `~/.agents/skills` in the last two lines with
+For a single project instead, replace `~/.codex/skills` in the last two lines with
 `.agents/skills` in that project's root — Codex looks for that folder from your current
 directory up to the repository root.
 

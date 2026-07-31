@@ -84,7 +84,7 @@ $ python skills/clean-docx/scripts/lint_docx.py 唐诗里的四季_案例.docx
 ### ✅ Codex CLI
 
 - 本 skill 是标准 `SKILL.md` + 脚本结构，没有 Claude 专用功能，可直接用
-- 安装路径：`~/.agents/skills/clean-docx/`（用户级）或项目内 `.agents/skills/clean-docx/`
+- 安装路径：`~/.codex/skills/clean-docx/`（用户级）或项目内 `.agents/skills/clean-docx/`
   （保持文件名 `SKILL.md` 不变）；项目记忆文件是 `AGENTS.md`
 
 ### ✅ OpenCode
@@ -136,11 +136,11 @@ Copy-Item -Recurse clean-docx/skills/clean-docx "$env:USERPROFILE/.claude/skills
 
 ```bash
 git clone https://github.com/SEAMAN9000/clean-docx.git
-mkdir -p ~/.agents/skills
-cp -r clean-docx/skills/clean-docx ~/.agents/skills/
+mkdir -p ~/.codex/skills
+cp -r clean-docx/skills/clean-docx ~/.codex/skills/
 ```
 
-只想装给某一个项目，就把最后两行的 `~/.agents/skills` 换成该项目根目录下的
+只想装给某一个项目，就把最后两行的 `~/.codex/skills` 换成该项目根目录下的
 `.agents/skills`——Codex 会从当前目录一路往仓库根找这个文件夹。
 
 装完验证：同上一句测试话术。若调不起，`scripts/` 下两个脚本可脱离 skill 独立使用
