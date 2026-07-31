@@ -92,7 +92,8 @@ figures are fictional):
 ### ✅ Codex CLI
 
 - The skill is a standard `SKILL.md` + scripts package with no Claude-only features; works as-is
-- Copy into `skills/clean-docx/` inside your project (keep the filename `SKILL.md`); project memory file is `AGENTS.md`
+- Install path: `~/.agents/skills/clean-docx/` (user-level) or `.agents/skills/clean-docx/`
+  inside your project (keep the filename `SKILL.md`); project memory file is `AGENTS.md`
 
 ### ✅ OpenCode
 
@@ -146,9 +147,13 @@ Copy-Item -Recurse clean-docx/skills/clean-docx "$env:USERPROFILE/.claude/skills
 
 ```bash
 git clone https://github.com/SEAMAN9000/clean-docx.git
-mkdir -p ./skills
-cp -r clean-docx/skills/clean-docx ./skills/
+mkdir -p ~/.agents/skills
+cp -r clean-docx/skills/clean-docx ~/.agents/skills/
 ```
+
+For a single project instead, replace `~/.agents/skills` in the last two lines with
+`.agents/skills` in that project's root — Codex looks for that folder from your current
+directory up to the repository root.
 
 Verify: same test sentence as above. If the skill does not trigger, the two scripts under
 `scripts/` work standalone (see "Using it as a plain library").
@@ -164,7 +169,7 @@ No slash command; it triggers semantically. Requests carrying any of the followi
 
 | Your request contains | 中文原短语 |
 |---|---|
-| write a Chinese report / paper / review / proposal / teaching material / memo as Word | 写报告 / 论文 / 综述 / 方案 / 教材 / 备忘 等中文 Word 文档 |
+| write a Chinese report / paper / review / proposal / teaching material / memo as Word | 写报告 / 论文 / 综述 / 方案 / 教材 / 备忘 / 通知 等任何中文 Word 文档 |
 | typesetting / fonts / consistent formatting | 排版 / 字体 / 格式统一 |
 | generate a .docx / Word document | 生成 docx / Word 文档 |
 | save / export the content as Word | 把内容另存为 / 导出为 Word 或 docx |

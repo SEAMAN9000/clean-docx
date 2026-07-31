@@ -8,7 +8,10 @@ description: >-
   「格式统一」「生成 docx/Word 文档」，就主动使用本技能——即使用户没明说要套规范。同样覆盖这些近义场景：
   「把内容另存为/导出为 Word 或 docx」「把这些（中文）内容单独存成一个 docx/Word 文件」「md / Markdown
   转 Word / 转 docx」「用 python-docx 生成/拼一个 Word 文档」「顺手再附带出一份 docx / 附属文档」——
-  这些只要产出物是中文 .docx 就该走本技能。硬规则：**凡是准备动手写 python-docx 代码、或调用
+  这些只要产出物是中文 .docx 就该走本技能。英文说法同样触发：write a Chinese report / paper /
+  review / proposal / teaching material / memo as Word；typesetting / fonts / consistent
+  formatting；generate a .docx / Word document；save / export the content as Word；convert
+  Markdown to Word；build a Word document with python-docx。硬规则：**凡是准备动手写 python-docx 代码、或调用
   anthropic-skills:docx 生成中文/中英混排文档，先停下来走本技能**，别图快手搓脚本（那正是排版会乱的根源）。
   它建立在 anthropic-skills:docx 之上，负责其中「排版好看且统一」这一环。不处理纯英文论文（用期刊自带模板）、
   PDF、Excel、PPT。

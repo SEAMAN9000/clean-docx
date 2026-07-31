@@ -84,7 +84,8 @@ $ python skills/clean-docx/scripts/lint_docx.py 唐诗里的四季_案例.docx
 ### ✅ Codex CLI
 
 - 本 skill 是标准 `SKILL.md` + 脚本结构，没有 Claude 专用功能，可直接用
-- 复制到项目内 `skills/clean-docx/`（保持文件名 `SKILL.md` 不变）；项目记忆文件是 `AGENTS.md`
+- 安装路径：`~/.agents/skills/clean-docx/`（用户级）或项目内 `.agents/skills/clean-docx/`
+  （保持文件名 `SKILL.md` 不变）；项目记忆文件是 `AGENTS.md`
 
 ### ✅ OpenCode
 
@@ -135,9 +136,12 @@ Copy-Item -Recurse clean-docx/skills/clean-docx "$env:USERPROFILE/.claude/skills
 
 ```bash
 git clone https://github.com/SEAMAN9000/clean-docx.git
-mkdir -p ./skills
-cp -r clean-docx/skills/clean-docx ./skills/
+mkdir -p ~/.agents/skills
+cp -r clean-docx/skills/clean-docx ~/.agents/skills/
 ```
+
+只想装给某一个项目，就把最后两行的 `~/.agents/skills` 换成该项目根目录下的
+`.agents/skills`——Codex 会从当前目录一路往仓库根找这个文件夹。
 
 装完验证：同上一句测试话术。若调不起，`scripts/` 下两个脚本可脱离 skill 独立使用
 （见「当函数库直接用」）。
@@ -152,7 +156,7 @@ cp -r clean-docx/skills/clean-docx ./skills/
 
 | 你说的话里包含 | English equivalent |
 |---|---|
-| 写报告 / 论文 / 综述 / 方案 / 教材 / 备忘 / 通知 等中文 Word 文档 | write a Chinese report / paper / plan… as Word |
+| 写报告 / 论文 / 综述 / 方案 / 教材 / 备忘 / 通知 等任何中文 Word 文档 | write a Chinese report / paper / review / proposal / teaching material / memo as Word |
 | 排版 / 字体 / 格式统一 | typesetting / fonts / consistent formatting |
 | 生成 docx / Word 文档 | generate a .docx / Word document |
 | 把内容另存为 / 导出为 Word 或 docx | save / export the content as Word |
